@@ -9,8 +9,13 @@ import model.ChessboardPoint;
 import view.CellComponent;
 import view.ChessComponent;
 import view.ChessboardComponent;
+import view.LionChessComponent;
 
 import javax.swing.*;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Controller is the connection between model and view,
@@ -22,18 +27,18 @@ import javax.swing.*;
 public class GameController implements GameListener {
 
 
-    private Chessboard model;
+    private static Chessboard model;
     private ChessboardComponent view;
     private PlayerColor currentPlayer;
 
     // Record whether there is a selected piece before
     private ChessboardPoint selectedPoint;
 
-    /*public void init(){
+    public void init(){
         initialize();
         this.view.initiateChessComponent(new Chessboard());
         this.view.repaint();
-    }*/
+    }
     public GameController(ChessboardComponent view, Chessboard model) {
         this.view = view;
         this.model = model;
@@ -45,10 +50,103 @@ public class GameController implements GameListener {
         view.repaint();
     }
 
+    public static Chessboard getModel() {
+        return model;
+    }
+    public static int[][] StringToInt(String[] arr){
+        int[][] array = new int[9][7];
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; i < 7; j++) {
+                array[i][j] = Integer.parseInt(arr[i].substring(i,i+1));
+            }
+
+
+        }
+        return array;
+    }
+    public static String[] convertToChessboard(List<String> readlines) {
+        String[] array = readlines.toArray(new String[readlines.size()]);
+
+    return array;
+    }
+    public static List<String> readFileByFileReader(String path) {
+        try {
+            FileReader fileReader = new FileReader(path);
+            BufferedReader reader = new BufferedReader(fileReader);
+            String line;
+            List<String> readLines = new ArrayList<>();
+            while ((line = reader.readLine()) != null) {
+                readLines.add(line);
+            }
+            reader.close();
+            fileReader.close();
+            return readLines;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+   public static int[][] arr = new int[9][7];
+    public static void writeFileByFileWriter(String path ) {
+        try {
+            FileWriter fileWriter = new FileWriter(path);
+            BufferedWriter writer = new BufferedWriter(fileWriter);
+
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 7; j++) {
+                    if (getModel().getGridAt(i, j).getPiece() != null) {
+                        if (String.valueOf(getModel().getGridAt(i, j).getPiece().getRank()).equals("1")) {
+                            arr[i][j] = 1;
+                        } else if (String.valueOf(getModel().getGridAt(i, j).getPiece().getRank()).equals("11")) {
+                            arr[i][j] = 11;
+                        } else if (String.valueOf(getModel().getGridAt(i, j).getPiece().getRank()).equals("2")) {
+                            arr[i][j] = 2;
+                        } else if (String.valueOf(getModel().getGridAt(i, j).getPiece().getRank()).equals("12")) {
+                            arr[i][j] = 12;
+                        } else if (String.valueOf(getModel().getGridAt(i, j).getPiece().getRank()).equals("3")) {
+                            arr[i][j] = 3;
+                        } else if (String.valueOf(getModel().getGridAt(i, j).getPiece().getRank()).equals("13")) {
+                            arr[i][j] = 13;
+                        } else if (String.valueOf(getModel().getGridAt(i, j).getPiece().getRank()).equals("4")) {
+                            arr[i][j] = 4;
+                        } else if (String.valueOf(getModel().getGridAt(i, j).getPiece().getRank()).equals("14")) {
+                            arr[i][j] = 14;
+                        } else if (String.valueOf(getModel().getGridAt(i, j).getPiece().getRank()).equals("5")) {
+                            arr[i][j] = 5;
+                        } else if (String.valueOf(getModel().getGridAt(i, j).getPiece().getRank()).equals("15")) {
+                            arr[i][j] = 15;
+                        } else if (String.valueOf(getModel().getGridAt(i, j).getPiece().getRank()).equals("6")) {
+                            arr[i][j] = 6;
+                        } else if (String.valueOf(getModel().getGridAt(i, j).getPiece().getRank()).equals("16")) {
+                            arr[i][j] = 16;
+                        } else if (String.valueOf(getModel().getGridAt(i, j).getPiece().getRank()).equals("7")) {
+                            arr[i][j] = 7;
+                        } else if (String.valueOf(getModel().getGridAt(i, j).getPiece().getRank()).equals("17")) {
+                            arr[i][j] = 17;
+                        } else if (String.valueOf(getModel().getGridAt(i, j).getPiece().getRank()).equals("8")) {
+                            arr[i][j] = 8;
+                        } else if (String.valueOf(getModel().getGridAt(i, j).getPiece().getRank()).equals("18")) {
+                            arr[i][j] = 18;
+                        } else arr[i][j] = 0;
+                    }
+                }
+            }
+            for (int i = 0; i < 9; i++) {
+             writer.write(Arrays.toString(arr[i]));
+                writer.write(System.lineSeparator());
+            }
+            String s = String.valueOf(Chessboard.getTurn());
+            writer.write(s);
+            writer.close();
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void setCurrentPlayer(PlayerColor a){
         this.currentPlayer = a;
     }
-    public void setModel(Chessboard mode){
+    public  void setModel(Chessboard mode){
         this.model=mode;
     }
     private void initialize() {

@@ -1,7 +1,12 @@
 package model;
 
+import view.CellComponent;
+import view.ChessComponent;
+import view.ChessboardComponent;
+
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -9,13 +14,17 @@ import java.util.List;
  * The Chessboard has 9*7 cells, and each cell has a position for chess
  */
 public class Chessboard {
-    private Cell[][] grid;
+    public Cell[][] grid;
 
     private ChessPlace chessplace[];
-    private int turn;
+    private static int turn;
 
-    public int getTurn(){
-        return this.turn;
+    public static void setTurn(int turn) {
+        Chessboard.turn = turn;
+    }
+
+    public static int getTurn(){
+        return turn;
     }
 
     public ChessPlace getChessplace(int rank) {
@@ -110,19 +119,19 @@ public class Chessboard {
         grid[7][1].setPiece(new ChessPiece(PlayerColor.BLUE, "猫",12));
     }
 
-    private ChessPiece getChessPieceAt(ChessboardPoint point) {
+    public ChessPiece getChessPieceAt(ChessboardPoint point) {
         return getGridAt(point).getPiece();
     }
 
-    private ChessPiece getChessPieceAt(int row,int col) {
+    public ChessPiece getChessPieceAt(int row,int col) {
         return getGridAt(row,col).getPiece();
     }
 
-    private Cell getGridAt(ChessboardPoint point) {
+    public Cell getGridAt(ChessboardPoint point) {
         return grid[point.getRow()][point.getCol()];
     }
 
-    private Cell getGridAt(int row,int col) {
+    public Cell getGridAt(int row,int col) {
         return grid[row][col];
     }
 
@@ -457,11 +466,85 @@ public class Chessboard {
         }
         return 0;//否则则不是跨河
     }
-    public static void writeFileByFileWriter(String path) {
+    public int[][] Str(int[][] arr) {
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (getGridAt(i, j).getPiece().getRank() == 1) {
+                    arr[i][j] = 1;
+                }
+                if (getGridAt(i, j).getPiece().getRank() == 11) {
+                    arr[i][j] = 11;
+                }
+                if (getGridAt(i, j).getPiece().getRank() == 2) {
+                    arr[i][j] = 2;
+                }
+                if (getGridAt(i, j).getPiece().getRank() == 12) {
+                    arr[i][j] = 12;
+                }
+                if (getGridAt(i, j).getPiece().getRank() == 3) {
+                    arr[i][j] = 3;
+                }
+                if (getGridAt(i, j).getPiece().getRank() == 13) {
+                    arr[i][j] = 13;
+                }
+                if (getGridAt(i, j).getPiece().getRank() == 4) {
+                    arr[i][j] = 4;
+                }
+                if (getGridAt(i, j).getPiece().getRank() == 14) {
+                    arr[i][j] = 14;
+                }
+                if (getGridAt(i, j).getPiece().getRank() == 5) {
+                    arr[i][j] = 5;
+                }
+                if (getGridAt(i, j).getPiece().getRank() == 15) {
+                    arr[i][j] = 15;
+                }
+                if (getGridAt(i, j).getPiece().getRank() == 6) {
+                    arr[i][j] = 6;
+                }
+                if (getGridAt(i, j).getPiece().getRank() == 16) {
+                    arr[i][j] = 16;
+                }
+                if (getGridAt(i, j).getPiece().getRank() == 7) {
+                    arr[i][j] = 7;
+                }
+                if (getGridAt(i, j).getPiece().getRank() == 17) {
+                    arr[i][j] = 17;
+                }
+                if (getGridAt(i, j).getPiece().getRank() == 8) {
+                    arr[i][j] = 8;
+                }
+                if (getGridAt(i, j).getPiece().getRank() == 18) {
+                    arr[i][j] = 18;
+                }
+            }
+        }
+        return arr;
+    }
+
+    public void setGrid(Cell[][] grid) {
+        this.grid = grid;
+    }
+
+
+    public static void writeFileByFileWriter(String path ,ChessboardComponent chessboardComponent) {
         try {
             FileWriter fileWriter = new FileWriter(path);
             BufferedWriter writer = new BufferedWriter(fileWriter);
-
+            int[][]arr = new int[9][7];
+//            for (int i = 0; i < 9; i++) {
+//                for (int j = 0; j < 7; j++) {
+//                    if (ChessComponent[i][j]){
+//
+//                    }
+//                    else arr[i][j] = 0;
+//                }
+//            }
+            for (int i = 0; i < 9; i++) {
+                writer.write(Arrays.toString(arr[i]));
+                writer.write(System.lineSeparator());
+            }
+           writer.write("asdsad");
             writer.close();
             fileWriter.close();
         } catch (IOException e) {
