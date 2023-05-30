@@ -6,6 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ButtonAction2 implements ActionListener {
@@ -29,12 +33,19 @@ public class ButtonAction2 implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         //获取输入框中的字符串
-        String nameText = nameJtf.getText( );
-        String pwdText = pwdJtf.getText( );
+
 
         //1：创建一个窗体的对象；
 
         JFrame jf = new JFrame( );
+        ImageIcon bg=new ImageIcon("C:\\Users\\文123\\Downloads\\CS109-2023-Sping-ChessDemo (4)\\src\\view\\background1.jpg");
+        JLabel label=new JLabel(bg);
+        label.setSize(1100,810);
+        jf.getLayeredPane().add(label,new Integer(Integer.MIN_VALUE));
+        //2.把窗口面板设为内容面板并设为透明、流动布局。
+        JPanel pan=(JPanel)jf.getContentPane();
+        pan.setOpaque(false);
+        //3.之后把组件和面板添加到窗口面板就可以；
 
         //2：设置窗体的相关属性：标题，尺寸，关闭选项操作 可视化
 
@@ -64,27 +75,48 @@ public class ButtonAction2 implements ActionListener {
         pwdJla.setFont(zhmm);
 
         //输入框
-        JTextField nameJtf = new JTextField( );
-        JTextField pwdJtf = new JTextField( );
+        JTextField nameJtf2 = new JTextField( );
+        JTextField pwdJtf2 = new JTextField( );
+        String nameText2 = nameJtf2.getText( );
+        String pwdText2 = pwdJtf2.getText( );
 
         //组件设置尺寸
         Dimension dimsize = new Dimension(550, 60);
-        nameJtf.setPreferredSize(dimsize);
-        pwdJtf.setPreferredSize(dimsize);
+        nameJtf2.setPreferredSize(dimsize);
+        pwdJtf2.setPreferredSize(dimsize);
 
         //4：界面窗体添加按钮
         // jf.add(imgjla);
         jf.add(nameJla);
-        jf.add(nameJtf);
+        jf.add(nameJtf2);
         jf.add(pwdJla);
-        jf.add(pwdJtf);
+        jf.add(pwdJtf2);
         jf.add(zc);
         //可视化在所有组件加载之后
         jf.setVisible(true);    //可视化 交给系统渲染到屏幕上
         ButtonAction3 zccg = new ButtonAction3();
         zc.addActionListener(zccg);
+        File file=new File("C:\\Users\\文123\\Downloads\\CS109-2023-Sping-ChessDemo (4)\\666.txt");
+        try {
+            file.createNewFile();
+            FileWriter  write = new FileWriter("C:\\Users\\文123\\Downloads\\CS109-2023-Sping-ChessDemo (4)\\666.txt");
+            BufferedWriter bw=new BufferedWriter(write);
+            bw.write(nameText2);
+            bw.write(System.lineSeparator());
+            bw.write(pwdText2);
+            bw.close();
+            write.close();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
 
 
-            }
+
+
+
+
+
+
+    }
         }
 

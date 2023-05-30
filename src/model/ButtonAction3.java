@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 import java.util.ArrayList;
 
 public class ButtonAction3 implements ActionListener {
@@ -30,7 +31,8 @@ public class ButtonAction3 implements ActionListener {
 
         //获取输入框中的字符串
                 //创建一个新窗体弹出
-                JFrame jf = new JFrame( );
+
+        JFrame jf = new JFrame( );
                 jf.setTitle("注册成功！！");
                 jf.setSize(500, 200);
                 jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

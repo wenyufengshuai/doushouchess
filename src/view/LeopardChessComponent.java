@@ -45,7 +45,7 @@ public class LeopardChessComponent  extends ChessComponent {
        }
         // FIXME: Use library to find the correct offset.
         if (isSelected()) { // Highlights the model if selected.
-            g.setColor(Color.RED);
+            g.setColor(Color.ORANGE);
             g.drawOval(0, 0, getWidth() , getHeight());
 
 

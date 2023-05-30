@@ -1,12 +1,15 @@
 package view;
 
 import controller.GameController;
-import model.ChessPiece;
-import model.Chessboard;
-import model.PlayerColor;
+import model.*;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 import static controller.GameController.arr;
 
@@ -40,6 +43,7 @@ public class ChessGameFrame extends JFrame {
        addLoadButton();
        addrenjiButton();
        addRegretButton();
+       addStyleButton();
     }
 
     public ChessboardComponent getChessboardComponent() {
@@ -211,10 +215,67 @@ public class ChessGameFrame extends JFrame {
 
         button.addActionListener(e -> {
             System.out.println("Click Style change");
+            JFrame jf = new JFrame( );
+
+            jf.setTitle("风格选择");
+            jf.setSize(600, 300);
+            jf.setLocationRelativeTo(null);
+//            jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            jf.setVisible(true);
+
+            FlowLayout flowLayout = new FlowLayout( );
+            jf.setLayout(flowLayout);
+            JButton style1 = new JButton("风格1");
+            JButton style2 = new JButton("风格2");
+            JButton style3 = new JButton("风格3");
+            style1.setPreferredSize(new Dimension(180,40));
+            style2.setPreferredSize(new Dimension(180,40));
+            style3.setPreferredSize(new Dimension(180,40));
+            Font style =new Font("华文行楷",Font.BOLD,20);
+            style1.setFont(style);
+            style2.setFont(style);
+            style3.setFont(style);
+            jf.add(style1);
+            jf.add(style2);
+            jf.add(style3);
+            //可视化在所有组件加载之后
+            jf.setVisible(true);
+            Stylechange1 stylechange1 = new Stylechange1();
+            style1.addActionListener(stylechange1);
+            Stylechange3 stylechange3 = new Stylechange3();
+            style3.addActionListener(stylechange3);
+            Stylechange2 stylechange2 = new Stylechange2();
+            style2.addActionListener(stylechange2);
 
 
         });
     }
+    static Clip clip;
+    public static void playMusic() {
 
+        try
+        {
+            //这里面放 绝对路径，音频必须是wav格式，用音频转换软件 把mp3 转成wav格式
+            File musicPath = new File("C:\\Users\\文123\\Downloads\\CS109-2023-Sping-ChessDemo (4)\\gikja-91ntv.wav");
+            AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+                clip = AudioSystem.getClip();
+                clip.open(audioInput);
+                FloatControl gainControl = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
+                gainControl.setValue(-20.0f);//设置音量，范围为 -60.0f 到 6.0f
+                clip.start();
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+
+
+
+
+
+
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+    }
 
 }

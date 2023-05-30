@@ -40,9 +40,16 @@ public class ElephantChessComponent extends ChessComponent {
         Font font = new Font("楷体", Font.PLAIN, getWidth() / 2);
         g2.setFont(font);
         g2.setColor(owner.getColor());
-        g2.drawString("象", getWidth() / 4, getHeight() * 5 / 8); // FIXME: Use library to find the correct offset.
+        if (owner.getColor().equals(Color.red)){
+            g.drawImage(gameUtils.imagehx,0, 0, null);
+            repaint();
+        }
+        else {
+            g.drawImage(gameUtils.imageheix,0, 0, null);
+            repaint();
+        }
         if (isSelected()) { // Highlights the model if selected.
-            g.setColor(Color.RED);
+            g.setColor(Color.ORANGE);
             g.drawOval(0, 0, getWidth() , getHeight());
         }
     }
