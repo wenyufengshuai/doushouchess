@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class ButtonActionrun implements ActionListener {
     public void actionPerformed(ActionEvent e) {
@@ -28,7 +30,12 @@ public class ButtonActionrun implements ActionListener {
                 mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 mainFrame.setThectrl(gameController);
                 mainFrame.setVisible(true);
-//                ChessGameFrame.playMusic();
+                try {
+                    JApplet.newAudioClip(new URL("file:"+"C:\\Users\\文123\\Downloads\\CS109-2023-Sping-ChessDemo (4)\\gikja-91ntv.wav")).play();
+                } catch (MalformedURLException ex) {
+                    throw new RuntimeException(ex);
+                }
+
             }
         });
     }

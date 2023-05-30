@@ -28,6 +28,7 @@ public class Stylechange3 implements ActionListener {
                 mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 mainFrame.setThectrl(gameController);
                 mainFrame.setVisible(true);
+                System.out.println("切换到二次元");
             }
         });
 

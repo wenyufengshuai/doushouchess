@@ -28,6 +28,7 @@ public class Stylechange2 implements ActionListener {
                 mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 mainFrame.setThectrl(gameController);
                 mainFrame.setVisible(true);
+                System.out.println("切换到山水风光");
             }
         });
 

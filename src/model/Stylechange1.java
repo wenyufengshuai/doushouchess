@@ -29,6 +29,7 @@ public class Stylechange1 implements ActionListener {
                 mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 mainFrame.setThectrl(gameController);
                 mainFrame.setVisible(true);
+                System.out.println("切换到动物世界");
             }
         });
 

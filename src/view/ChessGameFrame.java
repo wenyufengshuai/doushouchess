@@ -2,6 +2,13 @@ package view;
 
 import controller.GameController;
 import model.*;
+import java.io.File;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.SourceDataLine;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -218,19 +225,19 @@ public class ChessGameFrame extends JFrame {
             JFrame jf = new JFrame( );
 
             jf.setTitle("风格选择");
-            jf.setSize(600, 300);
+            jf.setSize(600, 120);
             jf.setLocationRelativeTo(null);
 //            jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             jf.setVisible(true);
 
             FlowLayout flowLayout = new FlowLayout( );
             jf.setLayout(flowLayout);
-            JButton style1 = new JButton("风格1");
-            JButton style2 = new JButton("风格2");
-            JButton style3 = new JButton("风格3");
-            style1.setPreferredSize(new Dimension(180,40));
-            style2.setPreferredSize(new Dimension(180,40));
-            style3.setPreferredSize(new Dimension(180,40));
+            JButton style1 = new JButton("动物世界");
+            JButton style2 = new JButton("山水风光");
+            JButton style3 = new JButton("二次元");
+            style1.setPreferredSize(new Dimension(180,50));
+            style2.setPreferredSize(new Dimension(180,50));
+            style3.setPreferredSize(new Dimension(180,50));
             Font style =new Font("华文行楷",Font.BOLD,20);
             style1.setFont(style);
             style2.setFont(style);
@@ -250,6 +257,34 @@ public class ChessGameFrame extends JFrame {
 
         });
     }
+    public static void playMusic2() {// 背景音乐播放
+        try {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new File("C:\\Users\\文123\\Downloads\\CS109-2023-Sping-ChessDemo (4)\\gikja-91ntv.wav"));    //绝对路径
+            AudioFormat aif = ais.getFormat();
+            final SourceDataLine sdl;
+            DataLine.Info info = new DataLine.Info(SourceDataLine.class, aif);
+            sdl = (SourceDataLine) AudioSystem.getLine(info);
+            sdl.open(aif);
+            sdl.start();
+            FloatControl fc = (FloatControl) sdl.getControl(FloatControl.Type.MASTER_GAIN);
+            // value可以用来设置音量，从0-2.0
+            double value = 2;
+            float dB = (float) (Math.log(value == 0.0 ? 0.0001 : value) / Math.log(10.0) * 20.0);
+            fc.setValue(dB);
+            int nByte = 0;
+            final int SIZE = 1024 * 64;
+            byte[] buffer = new byte[SIZE];
+            while (nByte != -1) {
+                nByte = ais.read(buffer, 0, SIZE);
+                sdl.write(buffer, 0, nByte);
+            }
+            sdl.stop();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     static Clip clip;
     public static void playMusic() {
 
